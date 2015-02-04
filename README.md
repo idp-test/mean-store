@@ -17,6 +17,9 @@ To start the process, simply run:
 $ grunt
 ```
 
+(inside of the main directory)
+
+
 ## License
 (The MIT License)
 
