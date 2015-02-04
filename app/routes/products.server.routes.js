@@ -6,7 +6,7 @@ module.exports = function(app) {
 	
 	// Product Comment
 	app.route('/products/comments/:productId')
-		.get(products.getComments)
+		.get(products.getComments);
 
 	app.route('/products/comments')
 		.post(products.saveComment);
