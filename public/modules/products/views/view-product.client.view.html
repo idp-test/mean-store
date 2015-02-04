@@ -1,8 +1,10 @@
 <section data-ng-controller="ProductsController" data-ng-init="findOne()">
 	<div class="page-header">
 		<h1 data-ng-bind="product.name"></h1>
+		<br>
 		<p data-ng-bind="product.description"></p>
-		<p data-ng-bind="product.price"></p>
+		<br>
+		<p>Price: <span data-ng-bind="product.price"></span></p>
 	</div>
 	<div class="pull-right" data-ng-show="((authentication.user) && (authentication.user._id == product.user._id))">
 		<a class="btn btn-primary" href="/#!/products/{{product._id}}/edit">
@@ -17,7 +19,35 @@
 			Posted on
 			<span data-ng-bind="product.created | date:'mediumDate'"></span>
 			by
-			<span data-ng-bind="product.user.displayName"></span>
+			<span data-ng-bind="product.user.displayName || 'Anonymous'"></span>
 		</em>
 	</small>
+<br>
+<br>
+<br>
+<section data-ng-controller="ProductsCommentController" data-ng-init="productComments()" >
+		<h4>Comments</h4>
+		<div data-ng-repeat="comment in comments" class="product-comment well">
+			Comment: <span> {{comment.text}} </span>
+		</div>
+<br>
+<br>
+<br>
+        <form class="form-horizontal" data-ng-submit="createComment()" novalidate>
+            <fieldset>
+                <div class="form-group">
+                    <label class="control-label" for="text">Add Comment</label>
+                    <div class="controls">
+                        <input type="text" data-ng-model="text" id="name" class="form-control" placeholder="Name" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <input type="submit" class="btn btn-default">
+                </div>
+				<div data-ng-show="error" class="text-danger">
+					<strong data-ng-bind="error"></strong>
+				</div>
+            </fieldset>
+        </form>
+</section>
 </section>

@@ -6,6 +6,7 @@
 var mongoose = require('mongoose'),
 	errorHandler = require('./errors.server.controller'),
 	Product = mongoose.model('Product'),
+	ProductComment = mongoose.model('Comment'),
 	_ = require('lodash');
 
 /**
@@ -25,6 +26,47 @@ exports.create = function(req, res) {
 		}
 	});
 };
+
+
+
+/*
+ *Create a Product Comment
+ */
+exports.saveComment = function(req, res) {
+	var comment = new ProductComment(req.body);
+	comment.user = req.user;
+	comment.productId = req.body.productId;
+
+	var productRedirect = {_id: req.body.productId};
+
+	//console.log('---------------:', comment, req.body);
+	comment.save(function(err) {
+		if (err) {
+			return res.status(400).send({
+				message: errorHandler.getErrorMessage(err)
+			});
+		} else {
+			res.jsonp(productRedirect);
+		}
+	});
+};
+
+
+/**
+ * Show the product comments
+ */
+exports.getComments = function(req, res) {
+	ProductComment.find({ productId: req.product._id},
+	  	function(err, results) {
+	  		if (!err) {
+				res.jsonp(results);
+	  		} else {
+	  			console.log('Error Getting Comments:', results);
+	  		}
+		});
+	};
+
+
 
 /**
  * Show the current Product

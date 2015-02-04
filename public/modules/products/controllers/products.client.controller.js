@@ -66,3 +66,40 @@ angular.module('products').controller('ProductsController', ['$scope', '$statePa
 		};
 	}
 ]);
+
+// Product Comment Controller
+angular.module('products').controller('ProductsCommentController', ['$scope', '$stateParams', '$location', 'Authentication', 'ProductComments',
+	function($scope, $stateParams, $location, Authentication, ProductComments) {
+		$scope.authentication = Authentication;
+
+		// Create new Product
+		$scope.createComment = function() {
+			// Create new Product object
+			var comment = new ProductComments ({
+				text: this.text,
+				productId: $stateParams.productId
+			});
+
+			// Redirect after save
+			comment.$save(function(response) {
+				// Refresh comments after save
+				$scope.productComments();
+
+				// Clear form fields
+				$scope.name = '';
+			}, function(errorResponse) {
+				$scope.error = errorResponse.data.message;
+			});
+		};
+
+		// Find a list of Products
+		$scope.productComments = function() {
+			$scope.comments = ProductComments.query({ 
+				productId: $stateParams.productId
+			}, function(results){
+				return results
+			});
+		};
+
+	}
+]);
