@@ -97,7 +97,7 @@ angular.module('products').controller('ProductsCommentController', ['$scope', '$
 			$scope.comments = ProductComments.query({ 
 				productId: $stateParams.productId
 			}, function(results){
-				return results
+				return results;
 			});
 		};
 
