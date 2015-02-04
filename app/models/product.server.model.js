@@ -67,7 +67,7 @@ ProductCommentSchema.method = function(key){
   			console.log('ERROR');
   		}
 	});
-}
+};
 
 mongoose.model('Product', ProductSchema);
 mongoose.model('Comment', ProductCommentSchema);
