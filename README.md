@@ -12,12 +12,18 @@ Before you begin we recommend you read about the basic building blocks that asse
 
 ## How To Run
 
+(inside of the main directory)
+
+First, install dependencies:
+```
+$ npm install
+```
 To start the process, simply run:
 ```
 $ grunt
 ```
 
-(inside of the main directory)
+
 
 
 ## License
